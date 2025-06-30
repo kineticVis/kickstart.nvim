@@ -141,6 +141,7 @@ vim.o.timeoutlen = 300
 vim.o.splitright = true
 vim.o.splitbelow = true
 
+
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
 --  and `:help 'listchars'`
@@ -174,6 +175,9 @@ vim.o.confirm = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, {desc = 'Show diagnostic [E]rror message'})
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
@@ -432,35 +436,6 @@ require('lazy').setup({
         },
       }
 
-      -- Enable Confrom
-      require('conform').setup {
-        formatters_by_ft = {
-          javascript = { 'prettier' },
-          typescript = { 'prettier' },
-          javascriptreact = { 'prettier' },
-          typescriptreact = { 'prettier' },
-          css = { 'prettier' },
-          scss = { 'prettier' },
-          html = { 'prettier' },
-          json = { 'prettier' },
-          yaml = { 'prettier' },
-          markdown = { 'prettier' },
-          zig = { 'zigfmt' },
-        },
-        -- format_on_save = {
-        --   timeout_ms = 500,
-        --   lsp_fallback = true,
-        -- },
-      }
-
-      vim.keymap.set({ 'n', 'v' }, '<leader>mp', function()
-        require('conform').format {
-          lsp_fallback = true,
-          async = false,
-          timeout_ms = 500,
-        }
-      end, { desc = 'Format file or range (in visual mode)' })
-
       -- Enable Telescope extensions if they are installed
       -- pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
@@ -529,9 +504,6 @@ require('lazy').setup({
 
       -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim', opts = {} },
-
-      -- Allows extra capabilities provided by blink.cmp
-      'saghen/blink.cmp',
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -575,6 +547,8 @@ require('lazy').setup({
             mode = mode or 'n'
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
+
+          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [Definition]')
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
@@ -731,6 +705,13 @@ require('lazy').setup({
           -- capabilities = {},
           settings = {
             Lua = {
+              workspace = {
+                checkThirstParty = false,
+                library = {
+                  '${3rd}/luv/library',
+                  unpack(vim.api.nvim_get_runtime_file('', true)),
+                }
+              },
               completion = {
                 callSnippet = 'Replace',
               },
@@ -809,6 +790,16 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        typescript = { 'prettier' },
+        javascriptreact = { 'prettier' },
+        typescriptreact = { 'prettier' },
+        css = { 'prettier' },
+        scss = { 'prettier' },
+        html = { 'prettier' },
+        json = { 'prettier' },
+        yaml = { 'prettier' },
+        markdown = { 'prettier' },
+        zig = { 'zigfmt' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -847,7 +838,9 @@ require('lazy').setup({
           --   end,
           -- },
         },
-        opts = {},
+        opts = {
+          
+        },
       },
       'folke/lazydev.nvim',
     },
@@ -876,7 +869,7 @@ require('lazy').setup({
         -- <c-k>: Toggle signature help
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
-        preset = 'super-tab',
+        preset = 'default',
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -891,7 +884,7 @@ require('lazy').setup({
       completion = {
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
-        documentation = { auto_show = false, auto_show_delay_ms = 500 },
+        documentation = { auto_show = true, auto_show_delay_ms = 500 },
       },
 
       sources = {
