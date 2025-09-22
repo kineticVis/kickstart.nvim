@@ -7,6 +7,14 @@ local keymap = vim.keymap.set
 --  See `:help hlsearch`
 keymap('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+keymap('n', '<F2>', ':Ex<CR>')
+keymap('v', '<F2>', ':Ex<CR>')
+keymap('i', '<F2>', ':Ex<CR>')
+
+-- remap for easier command entry
+-- keymap('n', ';', ':')
+-- keymap('v', ';', ':')
+
 -- Diagnostic keymaps
 keymap('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 keymap('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
