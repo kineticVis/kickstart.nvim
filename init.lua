@@ -59,6 +59,7 @@ require('lazy').setup({
       'TmuxNavigatePrevious',
       'TmuxNavigatorProcessList',
     },
+    { 'miikanissi/modus-themes.nvim', priority = 1000 },
     keys = {
       { '<c-h>', '<cmd><C-U>TmuxNavigateLeft<cr>' },
       { '<c-j>', '<cmd><C-U>TmuxNavigateDown<cr>' },
@@ -66,6 +67,23 @@ require('lazy').setup({
       { '<c-l>', '<cmd><C-U>TmuxNavigateRight<cr>' },
       { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
     },
+  },
+
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
+    opts = {},
+  },
+  {
+    'stevearc/oil.nvim',
+    ---@module 'oil'
+    ---@type oil.SetupOpts
+    opts = {},
+    -- Optional dependencies
+    dependencies = { { 'nvim-mini/mini.icons', opts = {} } },
+    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+    -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+    lazy = false,
   },
   {
     'ggandor/leap.nvim',
@@ -83,12 +101,6 @@ require('lazy').setup({
       leap.add_default_mappings(true)
       vim.keymap.del({ 'x', 'o' }, 'x')
       vim.keymap.del({ 'x', 'o' }, 'X')
-    end,
-  },
-  {
-    'supermaven-inc/supermaven-nvim',
-    config = function()
-      require('supermaven-nvim').setup {}
     end,
   },
   {
@@ -551,11 +563,11 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        gopls = {},
+        -- gopls = {},
         pyright = {},
         dockerls = {},
         bashls = {},
-        sqls = {},
+        -- sqls = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -564,6 +576,7 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         ts_ls = {},
+        tailwindcss = {},
         jsonls = {},
         superhtml = {},
         lua_ls = {
@@ -920,6 +933,27 @@ require('lazy').setup({
 })
 
 vim.cmd.colorscheme 'catppuccin-mocha'
+require('oil').setup {
+  float = {
+    padding = 2,
+    max_width = 0.80,
+    max_height = 0.80,
+    border = 'rounded',
+    win_options = {
+      winblend = 5,
+    },
+  },
+  view_options = {
+    show_hidden = true,
+  },
+  keymaps = {
+    ['<C-v>'] = { 'actions.select', opts = { vertical = true } },
+    ['<C-x>'] = { 'actions.select', opts = { horizontal = true } },
+    ['<C-s>'] = false,
+    ['<C-h>'] = false,
+    ['<C-l>'] = false
+  },
+}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
