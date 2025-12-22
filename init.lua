@@ -86,24 +86,6 @@ require('lazy').setup({
     lazy = false,
   },
   {
-    'ggandor/leap.nvim',
-    enabled = true,
-    keys = {
-      { 's', mode = { 'n', 'x', 'o' }, desc = 'Leap Forward to' },
-      { 'S', mode = { 'n', 'x', 'o' }, desc = 'Leap Backward to' },
-      { 'gs', mode = { 'n', 'x', 'o' }, desc = 'Leap from Windows' },
-    },
-    config = function(_, opts)
-      local leap = require 'leap'
-      for k, v in pairs(opts) do
-        leap.opts[k] = v
-      end
-      leap.add_default_mappings(true)
-      vim.keymap.del({ 'x', 'o' }, 'x')
-      vim.keymap.del({ 'x', 'o' }, 'X')
-    end,
-  },
-  {
     'windwp/nvim-ts-autotag',
     dependencies = 'nvim-treesitter/nvim-treesitter',
     config = function()
@@ -791,7 +773,8 @@ require('lazy').setup({
     },
   },
 
-  { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
+  -- { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
+  { 'ellisonleao/gruvbox.nvim' },
 
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
@@ -932,7 +915,9 @@ require('lazy').setup({
   },
 })
 
-vim.cmd.colorscheme 'catppuccin-mocha'
+vim.cmd.colorscheme 'gruvbox'
+-- vim.cmd.colorscheme 'catppuccin-mocha'
+
 require('oil').setup {
   float = {
     padding = 2,
@@ -951,7 +936,7 @@ require('oil').setup {
     ['<C-x>'] = { 'actions.select', opts = { horizontal = true } },
     ['<C-s>'] = false,
     ['<C-h>'] = false,
-    ['<C-l>'] = false
+    ['<C-l>'] = false,
   },
 }
 
