@@ -74,3 +74,11 @@ o.scrolloff = 10
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
 o.confirm = true
+
+vim.opt.tabstop = 2 -- Number of spaces a tab counts for
+vim.opt.shiftwidth = 2 -- Number of spaces for each indentation level
+vim.opt.expandtab = true -- Convert tabs to spaces
+vim.opt.softtabstop = 2 -- Number of spaces a tab counts for while editing
+vim.opt.smartindent = true -- Smart autoindenting for new lines
+vim.opt.autoindent = true -- Copy indent from current line when starting new line
+
