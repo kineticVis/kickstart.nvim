@@ -45,7 +45,7 @@ keymap('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 keymap('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Oil Keymaps
-vim.keymap.set("n", "-", "<CMD>Oil --float<CR>", { desc = "Open parent directory" })
+vim.keymap.set("n", "<leader>-", "<CMD>Oil --float<CR>", { desc = "Open parent directory" })
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 -- keymap("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })

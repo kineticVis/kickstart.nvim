@@ -9,6 +9,7 @@ return {
   require '.plugins.lazydev',
   require '.plugins.lsp-lines',
   require '.plugins.mini-nvim',
+  require '.plugins.noice',
   require '.plugins.nvim-lspconfig',
   require '.plugins.nvim-ts-autotag',
   require '.plugins.oil',
