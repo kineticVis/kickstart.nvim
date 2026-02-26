@@ -3,15 +3,15 @@ return {
   ---@module 'oil'
   ---@type oil.SetupOpts
   opts = {
-    float = {
-      padding = 2,
-      max_width = 0.80,
-      max_height = 0.80,
-      border = 'rounded',
-      win_options = {
-        winblend = 5,
-      },
-    },
+    -- float = {
+    --   padding = 2,
+    --   max_width = 0.80,
+    --   max_height = 0.80,
+    --   border = 'rounded',
+    --   win_options = {
+    --     winblend = 5,
+    --   },
+    -- },
     view_options = {
       show_hidden = true,
     },
